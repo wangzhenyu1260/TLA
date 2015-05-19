@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.3//EN" "http://struts.apache.org/dtds/struts-config_1_3.dtd">
+
+<struts-config>
+  <form-beans >
+    <form-bean name="userForm" type="com.tla.struts.form.UserForm" />
+
+  </form-beans>
+
+  <global-exceptions />
+  <global-forwards >
+    <forward name="goLogin" path="/index.jsp" />
+
+  </global-forwards>
+
+  <action-mappings >
+    <action
+      attribute="userForm"
+      input="/WEB-INF/login.jsp"
+      name="userForm"
+      path="/login"
+      scope="request"
+      type="com.tla.struts.action.LoginAction"
+      validate="false"
+      cancellable="true">
+      <forward name="goLoginUi" path="/WEB-INF/login.jsp" />
+      <forward name="loginok" path="/goMainUi.do" />
+    </action>
+    <action
+      path="/logout"
+      type="com.tla.struts.action.LogoutAction"
+      validate="false"
+      cancellable="true" >
+      <forward name="goLoginUi" path="/WEB-INF/login.jsp" />
+    </action>
+    <action
+      path="/goMainUi"
+      type="com.tla.struts.action.GoMainUiAction"
+      validate="false"
+      cancellable="true" >
+      <forward name="goSecretaryMainUi" path="/WEB-INF/logined/secretary/secretaryMain.jsp" />
+      <forward name="goTeacherMainUi" path="/WEB-INF/logined/teacher/teacherMain.jsp" />
+      <forward name="goTaMainUi" path="/WEB-INF/logined/teachingAssistant/TaMain.jsp" />
+    </action>
+
+
+
+
+  </action-mappings>
+
+  <message-resources parameter="com.tla.struts.ApplicationResources" />
+</struts-config>
+
