@@ -25,7 +25,6 @@
 <link href="assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
 <!-- END GLOBAL MANDATORY STYLES -->
 <!-- BEGIN PAGE LEVEL STYLES -->
-<link href="assets/admin/pages/css/about-us.css" rel="stylesheet" type="text/css"/>
 <!-- END PAGE LEVEL STYLES -->
 <!-- BEGIN THEME STYLES -->
 <link href="assets/global/css/components.css" id="style_components" rel="stylesheet" type="text/css"/>
@@ -140,11 +139,10 @@
 					<!-- END SIDEBAR TOGGLER BUTTON -->
 				</li>
 				
-				<li class="start active open">
+				<li class="start">
 					<a href="${pageContext.request.contextPath }/goMainUi.do">
 					<i class="icon-home"></i>
 					<span class="title">Home</span>
-					<span class="selected"></span>
 					</a>
 				</li>
 				<li>
@@ -171,10 +169,11 @@
 					</a>
 				</li>
 
-				<li>
+				<li class="active open">
 					<a href="${pageContext.request.contextPath }/changePwd.do?flag=goPwdUi">
 					<i class="icon-settings"></i>
 					<span class="title">Profile</span>
+					<span class="selected"></span>
 					</a>
 				</li>
 			</ul>
@@ -190,84 +189,101 @@
 				<ul class="page-breadcrumb">
 					<li>
 						<i class="fa fa-home"></i>
-						<a href="">Home</a>
+						<a href="${pageContext.request.contextPath }/goMainUi.do">Home</a>
+						<i class="fa fa-angle-right"></i>
+					</li>
+					<li>
+						<a href="${pageContext.request.contextPath }/changePwd.do?flag=goPwdUi">Profile</a>
 					</li>
 				</ul>
 			</div>
-			<h3 class="page-title">
-			About TLA
-			</h3>
-			<!-- END PAGE HEADER-->
-			<!-- BEGIN PAGE CONTENT-->
-			<div class="row margin-bottom-30">
-				<div class="col-md-10">
-					<p>TLA is a teaching load assignment system. A system is required for secretary, instructor and TA to assign and view the assignment jobs. Each person should log in with their user name and passwords. The system should assure that a TA will not assigned to two courses during one time slot while both courses require the TA to show up. There are three users:</p>
-					<ul class="list-unstyled margin-top-10 margin-bottom-10">
-						<li>
-							<i class="fa fa-user"></i> Secretary
-						</li>
-						<li>
-							<i class="fa fa-user"></i> Instructor or Teacher
-						</li>
-						<li>
-							<i class="fa fa-user"></i> Teaching Assistant
-						</li>
-					</ul>
-				</div>
-			</div>
-			<!--/row-->
-			<!-- Our Team -->
-			<div class="headline">
-				<h3>Our Team</h3>
-			</div>
-			<div class="row thumbnails">
-				<div class="col-md-3">
-					<div class="meet-our-team">
-						<h3>Crystal</h3>
-						<img src="assets/admin/pages/media/pages/2.jpg" alt="" class="img-responsive"/>
-						<div class="team-info">
-							<p>
-								 Donec id elit non mi porta gravida at eget metus. Fusce dapibus, justo sit amet risus etiam porta sem...
-							</p>
+			
+			<!-- BEGIN CHANGE PASSWORD CONTENT -->
+					
+						<div class="row">
+							<div class="col-md-12">
+								<div class="portlet light">
+									<div class="portlet-title tabbable-line">
+										<div class="caption caption-md">
+											<i class="icon-globe theme-font hide"></i>
+											<span class="caption-subject font-blue-madison bold uppercase">Profile Account</span>
+										</div>
+										<ul class="nav nav-tabs">
+											<li class="active">
+												<a href="#changePwd" data-toggle="tab">Change Password</a>
+											</li>
+										</ul>
+									</div>
+									<div class="portlet-body form">
+										<div class="tab-content">
+											<!-- CHANGE PASSWORD TAB -->
+											<div class="tab-pane active" id="changePwd">
+												<form action="${pageContext.request.contextPath }/changePwd.do?flag=changePwd" method="post" id="ChangPwdForm" class="form-horizontal">
+												
+												<c:if test="${PwdError!=null }">
+													<div class="alert alert-danger">
+														<button class="close" data-close="alert"></button>
+														The operation failed. ${PwdError }
+													</div>
+												</c:if>
+												
+													<div class="alert alert-danger display-hide">
+														<button class="close" data-close="alert"></button>
+														You have some form errors. Please check below.
+													</div>
+													<div class="alert alert-success display-hide">
+														<button class="close" data-close="alert"></button>
+														Your form validation is successful!
+													</div>
+
+													<div class="form-group">
+														<label class="control-label col-md-3">Current Password <span class="required">* </span></label>
+														<div class="col-md-3">
+															<div class="input-icon right">
+																<i class="fa"></i>
+																<input type="password" class="form-control" name="oldPwd"/>
+															</div>
+														</div>														
+													</div>
+													
+													<div class="form-group">
+														<label class="control-label col-md-3">New Password <span class="required">* </span></label>
+														<div class="col-md-3">
+															<div class="input-icon right">
+																<i class="fa"></i>
+																<input type="password" class="form-control" name="newPwd" id="newPwd"/>
+															</div>
+														</div>
+													</div>
+													<div class="form-group">
+														<label class="control-label col-md-3">Re-type New Password <span class="required">* </span></label>
+														<div class="col-md-3">
+															<div class="input-icon right">
+																<i class="fa"></i>
+																<input type="password" class="form-control" name="confirmPwd"/>
+															</div>
+														</div>
+													</div>
+													<div class="form-actions">
+														<div class="row">
+															<div class="col-md-offset-3 col-md-9">
+																<button type="submit" class="btn green-haze">Change Password</button>
+																<button type="reset" class="btn default">Cancel</button>
+															</div>
+														</div>
+													</div>								
+												</form>
+											</div>
+											<!-- END CHANGE PASSWORD TAB -->
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
-					</div>
-				</div>
-				<div class="col-md-3">
-					<div class="meet-our-team">
-						<h3>Marta Doe</h3>
-						<img src="assets/admin/pages/media/pages/3.jpg" alt="" class="img-responsive"/>
-						<div class="team-info">
-							<p>
-								 Donec id elit non mi porta gravida at eget metus. Fusce dapibus, justo sit amet risus etiam porta sem...
-							</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3">
-					<div class="meet-our-team">
-						<h3>Bob Nilson</h3>
-						<img src="assets/admin/pages/media/pages/2.jpg" alt="" class="img-responsive"/>
-						<div class="team-info">
-							<p>
-								 Donec id elit non mi porta gravida at eget metus. Fusce dapibus, justo sit amet risus etiam porta sem...
-							</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3">
-					<div class="meet-our-team">
-						<h3>Marta Doe</h3>
-						<img src="assets/admin/pages/media/pages/3.jpg" alt="" class="img-responsive"/>
-						<div class="team-info">
-							<p>
-								 Donec id elit non mi porta gravida at eget metus. Fusce dapibus, justo sit amet risus etiam porta sem...
-							</p>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!--/thumbnails-->
-			<!-- //End Our Team -->
+					
+					<!-- END CHANGE PASSWORD CONTENT -->
+			
+			
 			<!-- END PAGE CONTENT-->
 		</div>
 	</div>
@@ -302,16 +318,23 @@
 <script src="assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
 <script src="assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
 <!-- END CORE PLUGINS -->
+<!-- BEGIN PAGE LEVEL PLUGINS -->
+<script type="text/javascript" src="assets/global/plugins/jquery-validation/js/jquery.validate.min.js"></script>
+<!-- END PAGE LEVEL PLUGINS -->
+<!-- BEGIN PAGE LEVEL STYLES -->
 <script src="assets/global/scripts/metronic.js" type="text/javascript"></script>
 <script src="assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
 <!-- <script src="assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script> -->
 <script src="assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
+<script src="assets/admin/pages/scripts/form-validation.js"></script>
+<!-- END PAGE LEVEL STYLES -->
 <script>
       jQuery(document).ready(function() {    
         Metronic.init(); // init metronic core components
 		Layout.init(); // init current layout
 		//QuickSidebar.init(); // init quick sidebar
 		Demo.init(); // init demo features
+		FormValidation.init();
       });
    </script>
 <!-- END JAVASCRIPTS -->

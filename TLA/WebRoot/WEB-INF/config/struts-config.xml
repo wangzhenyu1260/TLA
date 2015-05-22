@@ -4,6 +4,7 @@
 <struts-config>
   <form-beans >
     <form-bean name="userForm" type="com.tla.struts.form.UserForm" />
+    <form-bean name="changePwdForm" type="com.tla.struts.form.ChangePwdForm" />
 
   </form-beans>
 
@@ -42,6 +43,28 @@
       <forward name="goTeacherMainUi" path="/WEB-INF/logined/teacher/teacherMain.jsp" />
       <forward name="goTaMainUi" path="/WEB-INF/logined/teachingAssistant/TaMain.jsp" />
     </action>
+    <action
+      attribute="changePwdForm"
+      name="changePwdForm"
+      parameter="flag"
+      path="/changePwd"
+      scope="request"
+      type="com.tla.struts.action.ChangePwdAction"
+      validate="false"
+      cancellable="true" >
+      <forward name="goSecretaryProfileUi" path="/WEB-INF/logined/secretary/changePwd.jsp" />
+    </action>
+    <action
+      parameter="flag"
+      path="/manageAccount"
+      type="com.tla.struts.action.ManageAccountAction"
+      validate="false"
+      cancellable="true" >
+      <forward name="goManageTeacherUi" path="/WEB-INF/logined/secretary/manageTeacher.jsp" />
+      <forward name="goManageTaUi" path="/WEB-INF/logined/secretary/manageTA.jsp" />
+    </action>
+
+
 
 
 

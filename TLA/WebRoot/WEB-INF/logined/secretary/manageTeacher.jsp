@@ -25,7 +25,6 @@
 <link href="assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
 <!-- END GLOBAL MANDATORY STYLES -->
 <!-- BEGIN PAGE LEVEL STYLES -->
-<link href="assets/admin/pages/css/about-us.css" rel="stylesheet" type="text/css"/>
 <!-- END PAGE LEVEL STYLES -->
 <!-- BEGIN THEME STYLES -->
 <link href="assets/global/css/components.css" id="style_components" rel="stylesheet" type="text/css"/>
@@ -140,21 +139,21 @@
 					<!-- END SIDEBAR TOGGLER BUTTON -->
 				</li>
 				
-				<li class="start active open">
+				<li class="start">
 					<a href="${pageContext.request.contextPath }/goMainUi.do">
 					<i class="icon-home"></i>
 					<span class="title">Home</span>
-					<span class="selected"></span>
 					</a>
 				</li>
-				<li>
+				<li class="active open">
 					<a href="javascript:;">
 					<i class="icon-users"></i>
 					<span class="title">Manage Account</span>
-					<span class="arrow "></span>
+					<span class="selected"></span>
+					<span class="arrow open"></span>
 					</a>
 					<ul class="sub-menu">
-						<li>
+						<li class="active">
 							<a href="${pageContext.request.contextPath }/manageAccount.do?flag=teacherUi">
 							Teacher</a>
 						</li>
@@ -190,84 +189,22 @@
 				<ul class="page-breadcrumb">
 					<li>
 						<i class="fa fa-home"></i>
-						<a href="">Home</a>
+						<a href="${pageContext.request.contextPath }/goMainUi.do">Home</a>
+						<i class="fa fa-angle-right"></i>
+					</li>
+					<li>
+						<a href="#">Manage Account</a>
+						<i class="fa fa-angle-right"></i>
+					</li>
+					<li>
+						<a href="${pageContext.request.contextPath }/manageAccount.do?flag=teacherUi">Teacher</a>
 					</li>
 				</ul>
 			</div>
-			<h3 class="page-title">
-			About TLA
-			</h3>
-			<!-- END PAGE HEADER-->
-			<!-- BEGIN PAGE CONTENT-->
-			<div class="row margin-bottom-30">
-				<div class="col-md-10">
-					<p>TLA is a teaching load assignment system. A system is required for secretary, instructor and TA to assign and view the assignment jobs. Each person should log in with their user name and passwords. The system should assure that a TA will not assigned to two courses during one time slot while both courses require the TA to show up. There are three users:</p>
-					<ul class="list-unstyled margin-top-10 margin-bottom-10">
-						<li>
-							<i class="fa fa-user"></i> Secretary
-						</li>
-						<li>
-							<i class="fa fa-user"></i> Instructor or Teacher
-						</li>
-						<li>
-							<i class="fa fa-user"></i> Teaching Assistant
-						</li>
-					</ul>
-				</div>
-			</div>
-			<!--/row-->
-			<!-- Our Team -->
-			<div class="headline">
-				<h3>Our Team</h3>
-			</div>
-			<div class="row thumbnails">
-				<div class="col-md-3">
-					<div class="meet-our-team">
-						<h3>Crystal</h3>
-						<img src="assets/admin/pages/media/pages/2.jpg" alt="" class="img-responsive"/>
-						<div class="team-info">
-							<p>
-								 Donec id elit non mi porta gravida at eget metus. Fusce dapibus, justo sit amet risus etiam porta sem...
-							</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3">
-					<div class="meet-our-team">
-						<h3>Marta Doe</h3>
-						<img src="assets/admin/pages/media/pages/3.jpg" alt="" class="img-responsive"/>
-						<div class="team-info">
-							<p>
-								 Donec id elit non mi porta gravida at eget metus. Fusce dapibus, justo sit amet risus etiam porta sem...
-							</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3">
-					<div class="meet-our-team">
-						<h3>Bob Nilson</h3>
-						<img src="assets/admin/pages/media/pages/2.jpg" alt="" class="img-responsive"/>
-						<div class="team-info">
-							<p>
-								 Donec id elit non mi porta gravida at eget metus. Fusce dapibus, justo sit amet risus etiam porta sem...
-							</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3">
-					<div class="meet-our-team">
-						<h3>Marta Doe</h3>
-						<img src="assets/admin/pages/media/pages/3.jpg" alt="" class="img-responsive"/>
-						<div class="team-info">
-							<p>
-								 Donec id elit non mi porta gravida at eget metus. Fusce dapibus, justo sit amet risus etiam porta sem...
-							</p>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!--/thumbnails-->
-			<!-- //End Our Team -->
+			
+			
+			
+			
 			<!-- END PAGE CONTENT-->
 		</div>
 	</div>
@@ -302,16 +239,23 @@
 <script src="assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
 <script src="assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
 <!-- END CORE PLUGINS -->
+<!-- BEGIN PAGE LEVEL PLUGINS -->
+<script type="text/javascript" src="assets/global/plugins/jquery-validation/js/jquery.validate.min.js"></script>
+<!-- END PAGE LEVEL PLUGINS -->
+<!-- BEGIN PAGE LEVEL STYLES -->
 <script src="assets/global/scripts/metronic.js" type="text/javascript"></script>
 <script src="assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
 <!-- <script src="assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script> -->
 <script src="assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
+<script src="assets/admin/pages/scripts/form-validation.js"></script>
+<!-- END PAGE LEVEL STYLES -->
 <script>
       jQuery(document).ready(function() {    
         Metronic.init(); // init metronic core components
 		Layout.init(); // init current layout
 		//QuickSidebar.init(); // init quick sidebar
 		Demo.init(); // init demo features
+		FormValidation.init();
       });
    </script>
 <!-- END JAVASCRIPTS -->
