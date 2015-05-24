@@ -7,6 +7,8 @@
     <form-bean name="changePwdForm" type="com.tla.struts.form.ChangePwdForm" />
     <form-bean name="accountForm" type="com.tla.struts.form.AccountForm" />
     <form-bean name="courseForm" type="com.tla.struts.form.CourseForm" />
+    <form-bean name="assignTaForm" type="com.tla.struts.form.AssignTaForm" />
+    <form-bean name="messageForm" type="com.tla.struts.form.MessageForm" />
 
   </form-beans>
 
@@ -92,6 +94,29 @@
       cancellable="true">
       <forward name="goFavoriteCourseUi" path="/WEB-INF/logined/teachingAssistant/favoriteCourse.jsp" />
     </action>
+    <action
+      attribute="assignTaForm"
+      input="/WEB-INF/logined/secretary/assignTa.jsp"
+      name="assignTaForm"
+      parameter="flag"
+      path="/assignTa"
+      scope="request"
+      type="com.tla.struts.action.AssignTaAction"
+      validate="false"
+      cancellable="true">
+      <forward name="goAssignTaUi" path="/WEB-INF/logined/secretary/assignTa.jsp" />
+    </action>
+    <action
+      attribute="messageForm"
+      input="/WEB-INF/logined/teacher/teacherMain.jsp"
+      name="messageForm"
+      parameter="flag"
+      path="/message"
+      scope="request"
+      type="com.tla.struts.action.MessageAction"
+      validate="false"
+      cancellable="true" />
+
 
 
 

@@ -25,13 +25,14 @@
 <link href="assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
 <!-- END GLOBAL MANDATORY STYLES -->
 <!-- BEGIN PAGE LEVEL STYLES -->
-<link href="assets/admin/pages/css/about-us.css" rel="stylesheet" type="text/css"/>
+<link rel="stylesheet" type="text/css" href="assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css"/>
+<link rel="stylesheet" type="text/css" href="assets/global/plugins/select2/select2.css"/>
 <!-- END PAGE LEVEL STYLES -->
 <!-- BEGIN THEME STYLES -->
 <link href="assets/global/css/components.css" id="style_components" rel="stylesheet" type="text/css"/>
 <link href="assets/global/css/plugins.css" rel="stylesheet" type="text/css"/>
 <link href="assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
-<link id="style_color" href="assets/admin/layout/css/themes/default.css" rel="stylesheet" type="text/css"/>
+<link id="style_color" href="assets/admin/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css"/>
 <link href="assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
 <!-- END THEME STYLES -->
 <!-- Favicons-->
@@ -79,7 +80,7 @@
 				<li class="dropdown dropdown-user">
 					<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
 					<span class="username username-hide-on-mobile">
-					${teacherinfo.name } </span>
+					${secretaryinfo.name } </span>
 					<i class="fa fa-angle-down"></i>
 					</a>
 					<ul class="dropdown-menu dropdown-menu-default">
@@ -140,19 +141,37 @@
 					<!-- END SIDEBAR TOGGLER BUTTON -->
 				</li>
 				
-				<li class="start active open">
+				<li class="start">
 					<a href="${pageContext.request.contextPath }/goMainUi.do">
 					<i class="icon-home"></i>
 					<span class="title">Home</span>
-					<span class="selected"></span>
 					</a>
 				</li>
 				<li>
-					<a href="${pageContext.request.contextPath }/myCourses.do?flag=myCoursesUi">
-					<i class="icon-briefcase"></i>
-					<span class="title">My Courses</span>
+					<a href="javascript:;">
+					<i class="icon-users"></i>
+					<span class="title">Manage Account</span>
+					<span class="arrow "></span>
 					</a>
-				</li>				
+					<ul class="sub-menu">
+						<li>
+							<a href="${pageContext.request.contextPath }/manageAccount.do?flag=teacherUi">
+							Teacher</a>
+						</li>
+						<li>
+							<a href="${pageContext.request.contextPath }/manageAccount.do?flag=taUi">
+							Teaching Assistant</a>
+						</li>
+					</ul>
+				</li>
+				<li class="active open">
+					<a href="${pageContext.request.contextPath }/assignTa.do?flag=assignTaUi"">
+					<i class="icon-note"></i>
+					<span class="title">Assign TA</span>
+					<span class="selected"></span>
+					</a>
+				</li>
+
 				<li>
 					<a href="${pageContext.request.contextPath }/changePwd.do?flag=goPwdUi">
 					<i class="icon-settings"></i>
@@ -172,104 +191,119 @@
 				<ul class="page-breadcrumb">
 					<li>
 						<i class="fa fa-home"></i>
-						<a href="">Home</a>
+						<a href="${pageContext.request.contextPath }/goMainUi.do">Home</a>
+						<i class="fa fa-angle-right"></i>
+					</li>
+					<li>
+						<a href="${pageContext.request.contextPath }/assignTa.do?flag=assignTaUi">Assign TA</a>
 					</li>
 				</ul>
 			</div>
 			<!-- END PAGE HEADER-->
 			<!-- BEGIN Alert message -->
-			<c:if test="${TellOperation=='success'}">
+			<c:if test="${AssignOperation=='success'}">
 				<div class="alert alert-success SuccessInfo">
 					<button class="close" data-close="alert"></button>
 					<strong>Success!</strong> The operation completed successfully.
 				</div>
 			</c:if>
-			<c:if test="${TellOperation=='error'}">
+			<c:if test="${AssignOperation=='error'}">
 				<div class="alert alert-danger ErrorInfo">
 					<button class="close" data-close="alert"></button>
 					<strong>Error!</strong> The operation failed! ${ErrorInfo}
 				</div>
 			</c:if>
+			
 			<!-- END Alert message -->
-			<!-- BEGIN PAGE CONTENT-->
-			<div class="row">
-				<div class="col-md-12">
-					<!-- BEGIN Course TABLE PORTLET-->
-					<div class="portlet box purple">
-						<div class="portlet-title">
-							<div class="caption">
-								<i class="fa fa-comments"></i>My Courses
+			<!-- BEGIN Course TABLE PORTLET-->
+						<div class="portlet box yellow">
+							<div class="portlet-title">
+								<div class="caption">
+									<i class="fa fa-edit"></i>Assign TA
+								</div>
 							</div>
-						</div>
-						<div class="portlet-body">
-								<table class="table table-striped table-hover">
+							<div class="portlet-body">
+								<table class="table table-striped table-bordered table-hover"
+									id="assginCourseTaTable">
 									<thead>
 										<tr>
 											<th>#</th>
 											<th>Course Name</th>
+											<th>Instructor</th>
 											<th>Time & Venue</th>
 											<th>TA</th>
 											<th></th>
-
 										</tr>
 									</thead>
 									<tbody>
-									<c:forEach items="${courseList }" var="course" varStatus="status" >
-										<tr>
-											<td> ${status.index+1} </td>
-											<td>${course.name }</td>
-											<td>${course.timeVenue }</td>
-											<td>${course.ta }</td>
-											<td>
-												<c:if test="${course.haveTa=='true' }">
-													<a data-toggle="modal" data-cid="${course.id }" data-taid="${course.taId }" href="#callTa" class="btn default btn-xs green call_button">
-														<i class="fa fa-share"></i> Call TA
-													</a>
-												</c:if>
-											</td>
-										</tr>
-									</c:forEach>
+										<c:forEach items="${courseList }" var="course"
+											varStatus="status">
+											<tr>
+												<td>${status.index+1}</td>
+												<td>${course.name }</td>
+												<td>${course.instructor }</td>
+												<td>${course.timeVenue }</td>
+												<td>${course.ta }</td>
+												<td>
+													<c:if test="${course.haveTa=='true' }">
+														<a data-toggle="modal" data-id="${course.id }" 
+														data-name="${course.name }" data-recommend="${course.recommendTA }"
+														data-taid="${course.taId }"
+														href="#updateTa" class="btn default btn-xs purple assgin_button"> <i
+														class="fa fa-edit"></i> Edit
+													</c:if>
+													<c:if test="${course.haveTa=='false' }">
+														<a data-toggle="modal" data-id="${course.id }" 
+														data-name="${course.name }" data-recommend="${course.recommendTA }"
+														href="#assginTa" class="btn default btn-xs blue assgin_button"> <i
+														class="fa fa-pencil"></i> Assgin
+														</a>
+													</c:if>
+												</td>
+											</tr>
+										</c:forEach>
 									</tbody>
 								</table>
-								
 							</div>
 						</div>
 						<!-- END Course TABLE PORTLET-->
-						<div class="modal fade" id="callTa" tabindex="-1" role="basic" aria-hidden="true">
+						<div class="modal fade" id="assginTa" tabindex="-1" role="basic" aria-hidden="true">
 							<div class="modal-dialog">
 								<div class="modal-content">
 									<div class="modal-header">
 										<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-										<h4 class="modal-title">Send Message To TA</h4>
+										<h4 class="modal-title">Assgin TA</h4>
 									</div>
 									<div class="modal-body">
-										<form class="form-horizontal" method="post" action="${pageContext.request.contextPath }/message.do?flag=send" id="callTaForm">
-											<div class="alert alert-danger display-hide">
-												<button class="close" data-close="alert"></button>
-												You have some form errors. Please check below.
-											</div>
-											<div class="alert alert-success display-hide">
-												<button class="close" data-close="alert"></button>
-												Your form validation is successful!
-											</div>
-											<input type="hidden" name="taId" class="ta_id" />
-											<input type="hidden" name="courseId" class="course_id" />
+										<form class="form-horizontal" method="post" action="${pageContext.request.contextPath }/assignTa.do?flag=assignTa" id="assignTa">
+											
+											<input type="hidden" name="courseId" class="assignCourse_id" />
 											<div class="form-group">
-												<label class="control-label col-md-4">Subject <span class="required"> * </span></label>
+												<label class="control-label col-md-4">Course Name <span class="required"> * </span></label>
 												<div class="col-md-6">
-													<input type="text" name="subject" data-required="1" class="form-control" required="required"/>
+													<input type="text" name="name" data-required="1" class="form-control assignCourse_name" disabled/>
 												</div>
 											</div>
 											<div class="form-group">
-												<label class="control-label col-md-4">Content <span class="required"> * </span></label>
+												<label class="control-label col-md-4">Recommendable TA </label>
 												<div class="col-md-6">
-													<textarea name="content" rows="5" required="required"></textarea>
+													<input type="text" name="recommendableTa" class="form-control assignCourse_recommend" readonly/>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="control-label col-md-4">Assign TA <span class="required"> * </span></label>
+												<div class="col-md-6">
+													<select name="assginTa" class="form-control" id="assginTa_select">
+														<c:forEach items="${taList }" var="ta">
+															<option value="${ta.id }">${ta.name }</option>
+														</c:forEach>
+													</select>
 												</div>
 											</div>
 										</div>
 										<div class="modal-footer">
 											<button type="button" class="btn default" data-dismiss="modal">Cancel</button>
-											<button type="submit" class="btn blue"><i class="fa fa-check"></i> Send</button>
+											<button type="submit" class="btn blue">Submit</button>
 										</div>
 									</form>
 								</div>
@@ -278,8 +312,52 @@
 							<!-- /.modal-dialog -->
 						</div>
 						<!-- /.modal -->
+						<div class="modal fade" id="updateTa" tabindex="-1" role="basic" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+										<h4 class="modal-title">Update TA</h4>
+									</div>
+									<div class="modal-body">
+										<form class="form-horizontal" method="post" action="${pageContext.request.contextPath }/assignTa.do?flag=updateAssignTa" id="assignTa">
+											<input type="hidden" name="courseId" class="assignCourse_id" />
+											<div class="form-group">
+												<label class="control-label col-md-4">Course Name <span class="required"> * </span></label>
+												<div class="col-md-6">
+													<input type="text" name="name" data-required="1" class="form-control assignCourse_name" disabled/>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="control-label col-md-4">Recommendable TA </label>
+												<div class="col-md-6">
+													<input type="text" name="recommendableTa" class="form-control assignCourse_recommend" readonly/>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="control-label col-md-4">Assign TA <span class="required"> * </span></label>
+												<div class="col-md-6">
+													<select name="assginTa" class="form-control" id="assginTa_select2">
+														<c:forEach items="${taList }" var="ta">
+															<option value="${ta.id }">${ta.name }</option>
+														</c:forEach>
+													</select>
+												</div>
+											</div>
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn default" data-dismiss="modal">Cancel</button>
+											<button type="submit" class="btn blue">Submit</button>
+										</div>
+									</form>
+								</div>
+								<!-- /.modal-content -->
+							</div>
+							<!-- /.modal-dialog -->
+						</div>
+						<!-- /.modal -->
+					</div>
 				</div>
-			</div>
 			<!-- END PAGE CONTENT-->
 		</div>
 	</div>
@@ -316,6 +394,9 @@
 <!-- END CORE PLUGINS -->
 <!-- BEGIN PAGE LEVEL PLUGINS -->
 <script type="text/javascript" src="assets/global/plugins/jquery-validation/js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="assets/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
+<script type="text/javascript" src="assets/global/plugins/select2/select2.min.js"></script>
 <!-- END PAGE LEVEL PLUGINS -->
 <!-- BEGIN PAGE LEVEL STYLES -->
 <script src="assets/global/scripts/metronic.js" type="text/javascript"></script>
@@ -323,6 +404,7 @@
 <!-- <script src="assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script> -->
 <script src="assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
 <script src="assets/admin/pages/scripts/form-validation.js"></script>
+<script src="assets/admin/pages/scripts/table-managed.js"></script>
 <!-- END PAGE LEVEL STYLES -->
 <script>
       jQuery(document).ready(function() {    
@@ -331,13 +413,23 @@
 		//QuickSidebar.init(); // init quick sidebar
 		Demo.init(); // init demo features
 		FormValidation.init();
+		TableManaged.init();
       });
-      $(document).on( "click", '.call_button',function(e) {
-    	  var cid = $(this).data('cid');
-	      var taid = $(this).data('taid');
-	        
-	      $(".ta_id").val(taid);
-	      $(".course_id").val(cid);
+      $(document).ready(function() {
+    	  $("#assginTa_select").select2();
+    	  $("#assginTa_select2").select2();
+      });
+      $(document).on( "click", '.assgin_button',function(e) {
+    	  var id = $(this).data('id');
+	      var name = $(this).data('name');
+	      var recommend =$(this).data('recommend');
+	      var taId = $(this).data('taid');
+	      
+	      $("#assginTa_select2").val(taId);
+	      
+	      $(".assignCourse_id").val(id);
+	      $(".assignCourse_name").val(name);
+	      $(".assignCourse_recommend").val(recommend);
       });
    </script>
 <!-- END JAVASCRIPTS -->

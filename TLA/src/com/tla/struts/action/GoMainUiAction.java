@@ -4,12 +4,28 @@
  */
 package com.tla.struts.action;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+
+import com.tla.domain.Course;
+import com.tla.domain.CourseTa;
+import com.tla.domain.Teacher;
+import com.tla.domain.Teachingassistant;
+import com.tla.service.imp.AssignServiceImp;
+import com.tla.service.imp.CourseServiceImp;
+import com.tla.service.imp.MessageServiceImp;
+import com.tla.service.inter.AssignServiceInter;
+import com.tla.service.inter.CourseServiceInter;
+import com.tla.service.inter.MessageServiceInter;
 
 /** 
  * MyEclipse Struts
@@ -40,14 +56,49 @@ public class GoMainUiAction extends Action {
 			return mapping.findForward("goSecretaryMainUi");
 
 		} else if (request.getSession().getAttribute("role").equals("teacher")) {
+			Teacher teacher = (Teacher)request.getSession().getAttribute("teacherinfo");
+			String tid = teacher.getId()+"";
 			// go to teacher main page
 			// load data
+			CourseServiceInter courseService = new CourseServiceImp();
+			AssignServiceInter assignService = new AssignServiceImp();
+			
+			List<Course> courseList = courseService.getCoursesByTeacherId(tid);
+			List<CourseTa> courseTaList = assignService.getAssignTasByTeacherId(tid);
+			
+			HashMap<Integer, Course> map = new HashMap<>();
+			for(int i=0;i<courseTaList.size();i++){
+				map.put(courseTaList.get(i).getCourse().getId(), courseTaList.get(i).getCourse());
+			}
+			
+			List<Course> newCourseList = new ArrayList<>();
+			for(int j=0;j<courseList.size();j++){
+				Course co = new Course();
+				co.setId(courseList.get(j).getId());
+				co.setName(courseList.get(j).getName());
+				co.setTimeVenue(courseList.get(j).getTimeVenue());
+				if(map.containsKey(courseList.get(j).getId())){
+					co.setTa(courseTaList.get(j).getTeachingassistant().getName());
+					co.setTaId(courseTaList.get(j).getTeachingassistant().getId()+"");
+					co.setHaveTa(true);
+				}else{
+					co.setHaveTa(false);
+				}
+				newCourseList.add(co);
+			}
+			
+			request.setAttribute("courseList", newCourseList);
 			// redirection
 			return mapping.findForward("goTeacherMainUi");
 
 		} else if (request.getSession().getAttribute("role").equals("ta")) {
 			// go to TA main page
 			// load data
+			Teachingassistant ta = (Teachingassistant) request.getSession().getAttribute("TAinfo");
+			MessageServiceInter messageService = new MessageServiceImp();
+			
+			request.setAttribute("messageList", messageService.getMessageByTaId(ta.getId()+""));
+			
 			// redirection
 			return mapping.findForward("goTaMainUi");
 

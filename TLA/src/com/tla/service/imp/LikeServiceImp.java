@@ -35,4 +35,17 @@ public class LikeServiceImp extends BaseServiceImp implements LikeServiceInter{
 		}
 	}
 
+	@Override
+	public List<TaLikeCourse> getTaLikeByCourseId(String cid) {
+		String hql = "from TaLikeCourse where course.id=?";
+		String[] parameters={cid};
+		try{
+			List<TaLikeCourse> list = getListObject(hql, parameters);
+			return list;
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
+
 }

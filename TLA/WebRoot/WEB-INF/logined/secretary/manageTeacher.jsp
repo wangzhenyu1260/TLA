@@ -166,7 +166,7 @@
 					</ul>
 				</li>
 				<li>
-					<a href="">
+					<a href="${pageContext.request.contextPath }/assignTa.do?flag=assignTaUi">
 					<i class="icon-note"></i>
 					<span class="title">Assign TA</span>
 					</a>

@@ -77,10 +77,12 @@ var FormValidation = function () {
 
     }
     
-    var addAccountValidation = function() {
-            var form1 = $('#addAccount');
-            var error1 = $('.alert-danger', form1);
-            var success1 = $('.alert-success', form1);
+   
+    
+    var callTaFormValidation = function() {
+            var form4 = $('#"callTaForm"');
+            var error4 = $('.alert-danger', form4);
+            var success4 = $('.alert-success', form4);
 
             form1.validate({
                 errorElement: 'span', //default input error message container
@@ -88,29 +90,20 @@ var FormValidation = function () {
                 focusInvalid: false, // do not focus the last invalid input
                 ignore: "",  // validate all fields including form hidden input
                 rules: {
-                	account: {
+                	subject: {
 						minlength: 2,
                         required: true
 					},
-                    name: {
+                    content: {
                         minlength: 3,
                         required: true
-                    },
-                    email: {
-                        required: true,
-                        email: true
-                    },
-                    phone: {
-						required: true,
-						digits:true,
-						rangelength:[6,11]
-					}
+                    }        
                 },
 
                 invalidHandler: function (event, validator) { //display error alert on form submit              
-                    success1.hide();
-                    error1.show();
-                    Metronic.scrollTo(error1, -200);
+                    success4.hide();
+                    error4.show();
+                    Metronic.scrollTo(error4, -200);
                 },
 
                 highlight: function (element) { // hightlight error inputs
@@ -129,25 +122,85 @@ var FormValidation = function () {
                 },
 
                 submitHandler: function (form) {
-                    success1.show();
-                    error1.hide();
+                    success4.show();
+                    error4.hide();
                     form.submit();
                 }
             });
-            $("button:reset").click(function() {
-				error1.hide();
-				success1.hide();
-				
-				//$("label.has-error").closest('.form-group').hide();
-				//$("label.has-success").closest('.form-group').hide();
-				$(".has-error").closest('.form-group').removeClass('has-error');
-				$(".has-success").closest('.form-group').removeClass('has-success');
-				
-    			form1.validate().resetForm();
-				
-			});
+            
 
 
+    }
+    
+    var addAccountValidation = function() {
+        var form1 = $('#addAccount');
+        var error1 = $('.alert-danger', form1);
+        var success1 = $('.alert-success', form1);
+
+        form1.validate({
+            errorElement: 'span', //default input error message container
+            errorClass: 'help-block help-block-error', // default input error message class
+            focusInvalid: false, // do not focus the last invalid input
+            ignore: "",  // validate all fields including form hidden input
+            rules: {
+            	account: {
+					minlength: 2,
+                    required: true
+				},
+                name: {
+                    minlength: 3,
+                    required: true
+                },
+                email: {
+                    required: true,
+                    email: true
+                },
+                phone: {
+					required: true,
+					digits:true,
+					rangelength:[6,11]
+				}
+            },
+
+            invalidHandler: function (event, validator) { //display error alert on form submit              
+                success1.hide();
+                error1.show();
+                Metronic.scrollTo(error1, -200);
+            },
+
+            highlight: function (element) { // hightlight error inputs
+                $(element)
+                    .closest('.form-group').removeClass('has-success').addClass('has-error'); // set error class to the control group
+            },
+
+            unhighlight: function (element) { // revert the change done by hightlight
+                $(element)
+                    .closest('.form-group').removeClass('has-error'); // set error class to the control group
+            },
+
+            success: function (label) {
+                label
+                    .closest('.form-group').removeClass('has-error').addClass('has-success'); // set success class to the control group
+            },
+
+            submitHandler: function (form) {
+                success1.show();
+                error1.hide();
+                form.submit();
+            }
+        });
+        $("button:reset").click(function() {
+			error1.hide();
+			success1.hide();
+			
+			//$("label.has-error").closest('.form-group').hide();
+			//$("label.has-success").closest('.form-group').hide();
+			$(".has-error").closest('.form-group').removeClass('has-error');
+			$(".has-success").closest('.form-group').removeClass('has-success');
+			
+			form1.validate().resetForm();
+			
+		});
     }
     
     var addCourseValidation = function() {
@@ -537,7 +590,7 @@ var FormValidation = function () {
         	addCourseValidation();
         	changePwdFormValidation();
         	addAccountValidation();
-
+        	callTaFormValidation();
         }
 
     };

@@ -20,8 +20,44 @@ public class Course implements java.io.Serializable {
 	private String favoriteTa;
 	private String notes;
 	private boolean like;
+	private String ta;
+	private String taId;
+	private boolean haveTa;
+	private String recommendTA;
 
 	// Constructors
+
+	public String getRecommendTA() {
+		return recommendTA;
+	}
+
+	public void setRecommendTA(String recommendTA) {
+		this.recommendTA = recommendTA;
+	}
+
+	public String getTaId() {
+		return taId;
+	}
+
+	public void setTaId(String taId) {
+		this.taId = taId;
+	}
+
+	public boolean isHaveTa() {
+		return haveTa;
+	}
+
+	public void setHaveTa(boolean haveTa) {
+		this.haveTa = haveTa;
+	}
+
+	public String getTa() {
+		return ta;
+	}
+
+	public void setTa(String ta) {
+		this.ta = ta;
+	}
 
 	public boolean isLike() {
 		return like;

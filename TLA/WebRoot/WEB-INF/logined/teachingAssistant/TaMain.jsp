@@ -176,8 +176,50 @@
 					</li>
 				</ul>
 			</div>
-			
+			<!-- END PAGE HEADER-->
+			<!-- BEGIN PAGE CONTENT-->
+			<div class="row">
+				<div class="col-md-12">
+					<!-- BEGIN Course TABLE PORTLET-->
+					<div class="portlet box green">
+						<div class="portlet-title">
+							<div class="caption">
+								<i class="fa fa-comments"></i>My Messages
+							</div>
+						</div>
+						<div class="portlet-body">
+								<table class="table table-striped table-hover">
+									<thead>
+										<tr>
+											<th>#</th>
+											<th>From</th>
+											<th>Course Name</th>
+											<th>Subject</th>
+											<th>Content</th>
+											<th>Time</th>									
+										</tr>
+									</thead>
+									<tbody>
+									<c:forEach items="${messageList }" var="message" varStatus="status" >
+										<tr>
+											<td> ${status.index+1} </td>
+											<td>${message.teacher.name }</td>
+											<td>${message.course.name }</td>
+											<td>${message.subject }</td>
+											<td>${message.content }</td>
+											<td>${message.datetime }</td>
+										</tr>
+									</c:forEach>
+									</tbody>
+								</table>
+								
+							</div>
+						</div>
+						
+				</div>
+			</div>
 			<!-- END PAGE CONTENT-->
+
 		</div>
 	</div>
 	<!-- END CONTENT -->

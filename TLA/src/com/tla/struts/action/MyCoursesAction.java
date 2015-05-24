@@ -138,4 +138,5 @@ public class MyCoursesAction extends DispatchAction {
 			return mapping.findForward("goLogin");
 		}
 	}
+	
 }
