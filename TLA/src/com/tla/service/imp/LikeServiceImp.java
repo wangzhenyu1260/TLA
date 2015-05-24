@@ -24,7 +24,7 @@ public class LikeServiceImp extends BaseServiceImp implements LikeServiceInter{
 
 	@Override
 	public boolean removeTaLikeCourse(String tid, String cid) {
-		String hql = "delete TaLikeCourse where Teachingassistant.id=? and Course.id=?";
+		String hql = "delete TaLikeCourse where teachingassistant.id=? and course.id=?";
 		String[] parameters={tid,cid};
 		try {
 			HibernateUtil.executeUpdateOpenInView(hql, parameters);
