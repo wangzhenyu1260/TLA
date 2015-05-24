@@ -228,15 +228,17 @@
 												<td>${course.instructor }</td>
 												<td>${course.timeVenue }</td>
 												<td>
-													
+													<c:if test="${course.like eq false }">
 													<a href="${pageContext.request.contextPath }/favoriteCourse.do?flag=addFavoriteCourse&cid=${course.id}">
 														<img src="img/unlike.png" alt="like"
 														title="Add to Favorites" />
 													</a>
-													
+													</c:if>
+													<c:if test="${course.like eq true }">
 													<a href="${pageContext.request.contextPath }/favoriteCourse.do?flag=removeFavoriteCourse&cid=${course.id}">
 														<img src="img/like.png" alt="unlike" title="Remove to Favorites" />
 													</a>
+													</c:if>
 												</td>
 											</tr>
 										</c:forEach>

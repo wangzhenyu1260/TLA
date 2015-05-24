@@ -4,6 +4,7 @@
  */
 package com.tla.struts.action;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -18,10 +19,8 @@ import org.apache.struts.actions.DispatchAction;
 import com.tla.domain.Course;
 import com.tla.domain.TaLikeCourse;
 import com.tla.domain.Teachingassistant;
-import com.tla.service.imp.BaseServiceImp;
 import com.tla.service.imp.CourseServiceImp;
 import com.tla.service.imp.LikeServiceImp;
-import com.tla.service.inter.BaseInterface;
 import com.tla.service.inter.CourseServiceInter;
 import com.tla.service.inter.LikeServiceInter;
 
@@ -56,17 +55,31 @@ public class FavoriteCourseAction extends DispatchAction {
 			CourseServiceInter courseService = new CourseServiceImp();
 			LikeServiceInter likeService = new LikeServiceImp();
 			
-			List<TaLikeCourse> taLikeCourseList = likeService.getTaLikeCourseByTaId(ta.getId()+"");
+			List<Course> taLikeCourseList = likeService.getTaLikeCourseByTaId(ta.getId()+"");
 			List<Course> courseList = courseService.getCourses();
 			
 			HashMap<String, Course> map = new HashMap<>();
 			for(int i=0;i<taLikeCourseList.size();i++){
-				map.put(taLikeCourseList.get(i).getCourse().getId()+"", taLikeCourseList.get(i).getCourse());
+				map.put(taLikeCourseList.get(i).getId()+"", taLikeCourseList.get(i));
+			}
+			List<Course> newCourseList = new ArrayList<>();
+			
+			for(int j=0;j<courseList.size();j++){
+				Course co = new Course();
+				co.setId(courseList.get(j).getId());
+				co.setName(courseList.get(j).getName());
+				co.setInstructor(courseList.get(j).getInstructor());
+				co.setTimeVenue(courseList.get(j).getTimeVenue());
+				if(map.containsKey(courseList.get(j).getId())){
+					co.setLike(true);
+				}else{
+					co.setLike(false);
+				}
+				newCourseList.add(co);
 			}
 			
 			
-			
-			request.setAttribute("courseList", courseService.getCourses());
+			request.setAttribute("courseList", newCourseList);
 			// redirection
 			return mapping.findForward("goFavoriteCourseUi");
 		} else {
