@@ -49,18 +49,18 @@ public class FavoriteCourseAction extends DispatchAction {
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) {
 		if (request.getSession().getAttribute("role").equals("ta")) {
-			Teachingassistant ta = (Teachingassistant) request.getSession().getAttribute("tainfo");
+			Teachingassistant ta = (Teachingassistant) request.getSession().getAttribute("TAinfo");
 			// go to TA favorite course page
 			// load data
 			CourseServiceInter courseService = new CourseServiceImp();
 			LikeServiceInter likeService = new LikeServiceImp();
 			
-			List<Course> taLikeCourseList = likeService.getTaLikeCourseByTaId(ta.getId()+"");
+			List<TaLikeCourse> taLikeCourseList = likeService.getTaLikeCourseByTaId(ta.getId().toString());
 			List<Course> courseList = courseService.getCourses();
 			
-			HashMap<String, Course> map = new HashMap<>();
+			HashMap<Integer, Course> map = new HashMap<>();
 			for(int i=0;i<taLikeCourseList.size();i++){
-				map.put(taLikeCourseList.get(i).getId()+"", taLikeCourseList.get(i));
+				map.put(taLikeCourseList.get(i).getCourse().getId(), taLikeCourseList.get(i).getCourse());
 			}
 			List<Course> newCourseList = new ArrayList<>();
 			
@@ -95,7 +95,7 @@ public class FavoriteCourseAction extends DispatchAction {
 			// add TA favorite course
 			// get data
 			String cid = request.getParameter("cid");
-			Teachingassistant ta = (Teachingassistant) request.getSession().getAttribute("tainfo");
+			Teachingassistant ta = (Teachingassistant) request.getSession().getAttribute("TAinfo");
 			
 			LikeServiceInter likeService = new LikeServiceImp();
 			CourseServiceInter courseService = new CourseServiceImp();
@@ -122,7 +122,7 @@ public class FavoriteCourseAction extends DispatchAction {
 			// add TA favorite course
 			// get data
 			String cid = request.getParameter("cid");
-			Teachingassistant ta = (Teachingassistant) request.getSession().getAttribute("tainfo");
+			Teachingassistant ta = (Teachingassistant) request.getSession().getAttribute("TAinfo");
 			
 			LikeServiceInter likeService = new LikeServiceImp();
 			if(likeService.removeTaLikeCourse(ta.getId()+"", cid)){

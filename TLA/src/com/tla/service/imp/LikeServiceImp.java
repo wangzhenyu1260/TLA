@@ -10,11 +10,11 @@ import com.tla.util.HibernateUtil;
 public class LikeServiceImp extends BaseServiceImp implements LikeServiceInter{
 
 	@Override
-	public List<Course> getTaLikeCourseByTaId(String tid) {
-		String hql = "select course from TaLikeCourse where teachingassistant.id=?";
+	public List<TaLikeCourse> getTaLikeCourseByTaId(String tid) {
+		String hql = "from TaLikeCourse where teachingassistant.id=?";
 		String[] parameters={tid};
 		try{
-			List<Course> list = getListObject(hql, parameters);
+			List<TaLikeCourse> list = getListObject(hql, parameters);
 			return list;
 		}catch(Exception e){
 			e.printStackTrace();
