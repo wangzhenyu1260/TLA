@@ -6,11 +6,20 @@ package com.tla.struts.action;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.actions.DispatchAction;
 
+import com.tla.service.imp.TaServiceImp;
+import com.tla.service.imp.TeacherServiceImp;
+import com.tla.service.inter.DefaultSettings;
+import com.tla.service.inter.TaServiceInter;
+import com.tla.service.inter.TeacherServiceInter;
+import com.tla.struts.form.AccountForm;
+import com.tla.domain.Teacher;
+import com.tla.domain.Teachingassistant;
 /** 
  * MyEclipse Struts
  * Creation date: 05-22-2015
@@ -37,6 +46,8 @@ public class ManageAccountAction extends DispatchAction {
 		if (request.getSession().getAttribute("role").equals("secretary")) {
 			// go to secretary manage teacher account page
 			// load data
+			TeacherServiceInter teacherService = new TeacherServiceImp();
+			request.setAttribute("teacherList", teacherService.getTeachers());
 			// redirection
 			return mapping.findForward("goManageTeacherUi");
 
@@ -52,9 +63,170 @@ public class ManageAccountAction extends DispatchAction {
 		if (request.getSession().getAttribute("role").equals("secretary")) {
 			// go to secretary manage teacher account page
 			// load data
+			TaServiceInter taService = new TaServiceImp();
+			request.setAttribute("taList", taService.getTas());
 			// redirection
 			return mapping.findForward("goManageTaUi");
 
+		} else {
+			request.setAttribute("msg", "ERROR: Permission denied.");
+			return mapping.findForward("goLogin");
+		}
+	}
+	
+	public ActionForward addTeacher(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		if (request.getSession().getAttribute("role").equals("secretary")) {
+			AccountForm teacherForm = (AccountForm) form;
+			
+			TeacherServiceInter teacherService = new TeacherServiceImp();
+			if(teacherService.checkAccount(teacherForm.getAccount())){
+				// construct a teacher to receive info from jsp
+				Teacher teacher = new Teacher();
+
+				teacher.setAccount(teacherForm.getAccount());
+				teacher.setName(teacherForm.getName());
+				teacher.setEmail(teacherForm.getEmail());
+				teacher.setPhone(teacherForm.getPhone());
+				teacher.setPassword(DefaultSettings.defaultPassword);
+				
+				// save the teacher
+				
+				if (teacherService.saveObject(teacher)) {
+					request.setAttribute("TeacherOperation", "success");
+				} else {
+					request.setAttribute("TeacherOperation", "error");
+				}
+				
+			}else{
+				request.setAttribute("TeacherOperation", "error");
+				request.setAttribute("ErrorInfo", "This account '"+teacherForm.getAccount()+"' has been used before, please change one.");
+			}
+			return new ActionForward("/manageAccount.do?flag=teacherUi");
+		} else {
+			request.setAttribute("msg", "ERROR: Permission denied.");
+			return mapping.findForward("goLogin");
+		}
+	}
+	
+	public ActionForward deleteTeacher(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		if (request.getSession().getAttribute("role").equals("secretary")) {
+
+			String tid = request.getParameter("tid");
+
+			// delete the teacher
+			TeacherServiceInter teacherService = new TeacherServiceImp();
+			if (teacherService.deleteTeacher(tid)) {
+				request.setAttribute("TeacherOperation", "success");
+			} else {
+				request.setAttribute("TeacherOperation", "error");
+			}
+
+			return new ActionForward("/manageAccount.do?flag=teacherUi");
+		} else {
+			request.setAttribute("msg", "ERROR: Permission denied.");
+			return mapping.findForward("goLogin");
+		}
+	}
+	
+	public ActionForward resetTeacher(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		if (request.getSession().getAttribute("role").equals("secretary")) {
+
+			String tid = request.getParameter("tid");
+
+			// reset the teacher password
+			TeacherServiceInter teacherService = new TeacherServiceImp();
+			if (teacherService.resetTeacher(tid)) {
+				request.setAttribute("TeacherOperation", "success");
+			} else {
+				request.setAttribute("TeacherOperation", "error");
+			}
+			return new ActionForward("/manageAccount.do?flag=teacherUi");
+		} else {
+			request.setAttribute("msg", "ERROR: Permission denied.");
+			return mapping.findForward("goLogin");
+		}
+
+	}
+	
+	public ActionForward resetTA(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		if (request.getSession().getAttribute("role").equals("secretary")) {
+
+			String tid = request.getParameter("tid");
+
+			// reset the teacher password
+			TaServiceInter taService = new TaServiceImp();
+			if (taService.resetTa(tid)) {
+				request.setAttribute("TaOperation", "success");
+			} else {
+				request.setAttribute("TaOperation", "error");
+			}
+			return new ActionForward("/manageAccount.do?flag=taUi");
+		} else {
+			request.setAttribute("msg", "ERROR: Permission denied.");
+			return mapping.findForward("goLogin");
+		}
+	}
+	
+	public ActionForward deleteTA(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		if (request.getSession().getAttribute("role").equals("secretary")) {
+
+			String tid = request.getParameter("tid");
+
+			// delete the teacher
+			TaServiceInter taService = new TaServiceImp();
+			if (taService.deleteTa(tid)) {
+				request.setAttribute("TaOperation", "success");
+			} else {
+				request.setAttribute("TaOperation", "error");
+			}
+
+			return new ActionForward("/manageAccount.do?flag=taUi");
+		} else {
+			request.setAttribute("msg", "ERROR: Permission denied.");
+			return mapping.findForward("goLogin");
+		}
+	}
+	
+	public ActionForward addTA(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		if (request.getSession().getAttribute("role").equals("secretary")) {
+			AccountForm taForm = (AccountForm) form;
+			
+			TaServiceInter taService = new TaServiceImp();
+			if(taService.checkAccount(taForm.getAccount())){
+				// construct a teacher to receive info from jsp
+				Teachingassistant ta = new Teachingassistant();
+
+				ta.setAccount(taForm.getAccount());
+				ta.setName(taForm.getName());
+				ta.setEmail(taForm.getEmail());
+				ta.setPhone(taForm.getPhone());
+				ta.setPassword(DefaultSettings.defaultPassword);
+				
+				// save the teacher
+				
+				if (taService.saveObject(ta)) {
+					request.setAttribute("TaOperation", "success");
+				} else {
+					request.setAttribute("TaOperation", "error");
+				}
+				
+			}else{
+				request.setAttribute("TaOperation", "error");
+				request.setAttribute("ErrorInfo", "This account '"+taForm.getAccount()+"' has been used before, please change one.");
+			}
+			return new ActionForward("/manageAccount.do?flag=taUi");
 		} else {
 			request.setAttribute("msg", "ERROR: Permission denied.");
 			return mapping.findForward("goLogin");

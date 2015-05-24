@@ -1,5 +1,8 @@
 package com.tla.domain;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Teacher entity. @author MyEclipse Persistence Tools
  */
@@ -18,6 +21,7 @@ public class Teacher implements java.io.Serializable {
 	private String name;
 	private String email;
 	private String phone;
+	private Set<Course> courses = new HashSet<Course>(0);
 
 	// Constructors
 
@@ -25,7 +29,7 @@ public class Teacher implements java.io.Serializable {
 	public Teacher() {
 	}
 
-	/** full constructor */
+	/** minimal constructor */
 	public Teacher(String account, String password, String name, String email,
 			String phone) {
 		this.account = account;
@@ -33,6 +37,17 @@ public class Teacher implements java.io.Serializable {
 		this.name = name;
 		this.email = email;
 		this.phone = phone;
+	}
+
+	/** full constructor */
+	public Teacher(String account, String password, String name, String email,
+			String phone, Set<Course> courses) {
+		this.account = account;
+		this.password = password;
+		this.name = name;
+		this.email = email;
+		this.phone = phone;
+		this.courses = courses;
 	}
 
 	// Property accessors
@@ -83,6 +98,14 @@ public class Teacher implements java.io.Serializable {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+
+	public Set<Course> getCourses() {
+		return this.courses;
+	}
+
+	public void setCourses(Set<Course> courses) {
+		this.courses = courses;
 	}
 
 }

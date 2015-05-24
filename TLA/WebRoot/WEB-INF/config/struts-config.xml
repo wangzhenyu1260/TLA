@@ -5,6 +5,8 @@
   <form-beans >
     <form-bean name="userForm" type="com.tla.struts.form.UserForm" />
     <form-bean name="changePwdForm" type="com.tla.struts.form.ChangePwdForm" />
+    <form-bean name="accountForm" type="com.tla.struts.form.AccountForm" />
+    <form-bean name="courseForm" type="com.tla.struts.form.CourseForm" />
 
   </form-beans>
 
@@ -53,16 +55,45 @@
       validate="false"
       cancellable="true" >
       <forward name="goSecretaryProfileUi" path="/WEB-INF/logined/secretary/changePwd.jsp" />
+      <forward name="goTeacherProfileUi" path="/WEB-INF/logined/teacher/changePwd.jsp" />
+      <forward name="goTaProfileUi" path="/WEB-INF/logined/teachingAssistant/changePwd.jsp" />
     </action>
     <action
+      attribute="accountForm"
+      input="/WEB-INF/logined/secretary/manageTeacher.jsp"
+      name="accountForm"
       parameter="flag"
       path="/manageAccount"
+      scope="request"
       type="com.tla.struts.action.ManageAccountAction"
       validate="false"
-      cancellable="true" >
-      <forward name="goManageTeacherUi" path="/WEB-INF/logined/secretary/manageTeacher.jsp" />
+      cancellable="true">
       <forward name="goManageTaUi" path="/WEB-INF/logined/secretary/manageTA.jsp" />
+      <forward name="goManageTeacherUi" path="/WEB-INF/logined/secretary/manageTeacher.jsp" />
     </action>
+    <action
+      attribute="courseForm"
+      input="/WEB-INF/logined/teacher/myCourses.jsp"
+      name="courseForm"
+      parameter="flag"
+      path="/myCourses"
+      scope="request"
+      type="com.tla.struts.action.MyCoursesAction"
+      validate="false"
+      cancellable="true">
+      <forward name="goMyCoursesUi" path="/WEB-INF/logined/teacher/myCourses.jsp" />
+    </action>
+    <action
+      input="/WEB-INF/logined/teachingAssistant/favoriteCourse.jsp"
+      parameter="flag"
+      path="/favoriteCourse"
+      type="com.tla.struts.action.FavoriteCourseAction"
+      validate="false"
+      cancellable="true">
+      <forward name="goFavoriteCourseUi" path="/WEB-INF/logined/teachingAssistant/favoriteCourse.jsp" />
+    </action>
+
+
 
 
 

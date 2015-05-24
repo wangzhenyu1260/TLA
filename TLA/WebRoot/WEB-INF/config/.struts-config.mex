@@ -4,16 +4,76 @@
   <StrutsActivity path="/logout.do" location="795,90" dimension="237,104" />
   <StrutsActivity path="/goMainUi.do" location="435,450" dimension="254,104" />
   <StrutsActivity path="/changePwd.do" location="435,990" dimension="264,104" />
+  <StrutsActivity path="/manageAccount.do" location="-375,615" dimension="290,104" />
+  <StrutsActivity path="/myCourses.do" location="1020,630" dimension="261,104" />
   <StrutsActivity path="goLogin;6" location="90,-60" dimension="150,100" />
   <StrutsActivity path="/WEB-INF/login.jsp" location="480,90" dimension="151,91" />
   <StrutsActivity path="/WEB-INF/logined/secretary/secretaryMain.jsp" location="120,465" dimension="166,106" />
   <StrutsActivity path="/WEB-INF/logined/teacher/teacherMain.jsp" location="495,630" dimension="150,100" />
-  <StrutsActivity path="/WEB-INF/logined/teachingAssistant/TaMain.jsp" location="855,465" dimension="150,100" />
-  <StrutsActivity path="/index.jsp" location="395,-40" dimension="88,53" />
+  <StrutsActivity path="/WEB-INF/logined/teachingAssistant/TaMain.jsp" location="1095,465" dimension="150,100" />
+  <StrutsActivity path="/WEB-INF/logined/teachingAssistant/changePwd.jsp" location="840,990" dimension="150,100" />
   <StrutsActivity path="/WEB-INF/logined/secretary/changePwd.jsp" location="120,990" dimension="165,100" />
-  <StrutsActivity path="/manageAccount.do" location="-375,615" dimension="290,104" />
-  <StrutsActivity path="/WEB-INF/logined/secretary/manageTeacher.jsp" location="120,615" dimension="166,106" />
+  <StrutsActivity path="/WEB-INF/logined/teacher/changePwd.jsp" location="480,810" dimension="150,100" />
   <StrutsActivity path="/WEB-INF/logined/secretary/manageTA.jsp" location="-675,615" dimension="150,100" />
+  <StrutsActivity path="/WEB-INF/logined/secretary/manageTeacher.jsp" location="120,615" dimension="166,106" />
+  <StrutsActivity path="/WEB-INF/logined/teacher/myCourses.jsp" location="735,630" dimension="150,100" />
+  <StrutsActivity path="/index.jsp" location="395,-40" dimension="88,53" />
+  <StrutsActivity path="/WEB-INF/logined/teachingAssistant/favoriteCourse.jsp" location="840,1140" dimension="150,100" />
+  <StrutsActivity path="/favoriteCourse.do" location="1170,1140" dimension="283,104" />
+  <StrutsTransition id="/WEB-INF/logined/secretary/manageTeacher.jsp,null,/manageAccount.do,2" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="120,638" />
+      <AbsolutePoint location="-85,638" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/goMainUi.do,goSecretaryMainUi,/WEB-INF/logined/secretary/secretaryMain.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="435,518" />
+      <AbsolutePoint location="286,518" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/changePwd.do,goTaProfileUi,/WEB-INF/logined/teachingAssistant/changePwd.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="699,1040" />
+      <AbsolutePoint location="840,1040" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/manageAccount.do,goManageTaUi,/WEB-INF/logined/secretary/manageTA.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="-375,665" />
+      <AbsolutePoint location="-525,665" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="goLogin;6,null,/index.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="240,-13" />
+      <AbsolutePoint location="395,-13" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/manageAccount.do,goManageTeacherUi,/WEB-INF/logined/secretary/manageTeacher.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="-85,668" />
+      <AbsolutePoint location="120,668" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/login.do,goLoginUi,/WEB-INF/login.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="555,270" />
+      <AbsolutePoint location="555,181" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/WEB-INF/logined/teacher/myCourses.jsp,null,/myCourses.do,2" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="885,650" />
+      <AbsolutePoint location="1020,650" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/logout.do,goLoginUi,/WEB-INF/login.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="795,135" />
+      <AbsolutePoint location="631,135" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
   <StrutsTransition id="/goMainUi.do,goTeacherMainUi,/WEB-INF/logined/teacher/teacherMain.jsp,1" routingType="0">
     <AutomaticBendpoints>
       <AbsolutePoint location="570,554" />
@@ -26,28 +86,22 @@
       <AbsolutePoint location="285,1040" />
     </AutomaticBendpoints>
   </StrutsTransition>
-  <StrutsTransition id="/manageAccount.do,goManageTaUi,/WEB-INF/logined/secretary/manageTA.jsp,1" routingType="0">
+  <StrutsTransition id="/changePwd.do,goTeacherProfileUi,/WEB-INF/logined/teacher/changePwd.jsp,1" routingType="0">
     <AutomaticBendpoints>
-      <AbsolutePoint location="-375,665" />
-      <AbsolutePoint location="-525,665" />
+      <AbsolutePoint location="510,990" />
+      <AbsolutePoint location="510,910" />
     </AutomaticBendpoints>
   </StrutsTransition>
-  <StrutsTransition id="/goMainUi.do,goSecretaryMainUi,/WEB-INF/logined/secretary/secretaryMain.jsp,1" routingType="0">
+  <StrutsTransition id="/WEB-INF/logined/teachingAssistant/favoriteCourse.jsp,null,/favoriteCourse.do,2" routingType="0">
     <AutomaticBendpoints>
-      <AbsolutePoint location="435,518" />
-      <AbsolutePoint location="286,518" />
+      <AbsolutePoint location="990,1160" />
+      <AbsolutePoint location="1170,1160" />
     </AutomaticBendpoints>
   </StrutsTransition>
-  <StrutsTransition id="/manageAccount.do,goManageTeacherUi,/WEB-INF/logined/secretary/manageTeacher.jsp,1" routingType="0">
+  <StrutsTransition id="/favoriteCourse.do,goFavoriteCourseUi,/WEB-INF/logined/teachingAssistant/favoriteCourse.jsp,1" routingType="0">
     <AutomaticBendpoints>
-      <AbsolutePoint location="-85,668" />
-      <AbsolutePoint location="120,668" />
-    </AutomaticBendpoints>
-  </StrutsTransition>
-  <StrutsTransition id="goLogin;6,null,/index.jsp,1" routingType="0">
-    <AutomaticBendpoints>
-      <AbsolutePoint location="240,-13" />
-      <AbsolutePoint location="395,-13" />
+      <AbsolutePoint location="1170,1190" />
+      <AbsolutePoint location="990,1190" />
     </AutomaticBendpoints>
   </StrutsTransition>
   <StrutsTransition id="/login.do,loginok,/goMainUi.do,1" routingType="0">
@@ -56,28 +110,22 @@
       <AbsolutePoint location="562,450" />
     </AutomaticBendpoints>
   </StrutsTransition>
+  <StrutsTransition id="/myCourses.do,goMyCoursesUi,/WEB-INF/logined/teacher/myCourses.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="1020,680" />
+      <AbsolutePoint location="885,680" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
   <StrutsTransition id="/WEB-INF/login.jsp,null,/login.do,2" routingType="0">
     <AutomaticBendpoints>
       <AbsolutePoint location="585,181" />
       <AbsolutePoint location="585,270" />
     </AutomaticBendpoints>
   </StrutsTransition>
-  <StrutsTransition id="/login.do,goLoginUi,/WEB-INF/login.jsp,1" routingType="0">
-    <AutomaticBendpoints>
-      <AbsolutePoint location="555,270" />
-      <AbsolutePoint location="555,181" />
-    </AutomaticBendpoints>
-  </StrutsTransition>
   <StrutsTransition id="/goMainUi.do,goTaMainUi,/WEB-INF/logined/teachingAssistant/TaMain.jsp,1" routingType="0">
     <AutomaticBendpoints>
       <AbsolutePoint location="689,515" />
-      <AbsolutePoint location="855,515" />
-    </AutomaticBendpoints>
-  </StrutsTransition>
-  <StrutsTransition id="/logout.do,goLoginUi,/WEB-INF/login.jsp,1" routingType="0">
-    <AutomaticBendpoints>
-      <AbsolutePoint location="795,135" />
-      <AbsolutePoint location="631,135" />
+      <AbsolutePoint location="1095,515" />
     </AutomaticBendpoints>
   </StrutsTransition>
 </FlowViewLayout>

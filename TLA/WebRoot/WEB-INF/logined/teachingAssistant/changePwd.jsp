@@ -30,7 +30,7 @@
 <link href="assets/global/css/components.css" id="style_components" rel="stylesheet" type="text/css"/>
 <link href="assets/global/css/plugins.css" rel="stylesheet" type="text/css"/>
 <link href="assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
-<link id="style_color" href="assets/admin/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css"/>
+<link id="style_color" href="assets/admin/layout/css/themes/grey.css" rel="stylesheet" type="text/css"/>
 <link href="assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
 <!-- END THEME STYLES -->
 <!-- Favicons-->
@@ -78,7 +78,7 @@
 				<li class="dropdown dropdown-user">
 					<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
 					<span class="username username-hide-on-mobile">
-					${secretaryinfo.name } </span>
+					${TAinfo.name } </span>
 					<i class="fa fa-angle-down"></i>
 					</a>
 					<ul class="dropdown-menu dropdown-menu-default">
@@ -95,8 +95,8 @@
 	</div>
 	<!-- END HEADER INNER -->
 </div>
-<div class="modal fade" id="logout" tabindex="-1" role="basic" aria-hidden="true">
-		<div class="modal-dialog">
+<div class="modal fade bs-modal-sm" id="logout" tabindex="-1" role="basic" aria-hidden="true">
+		<div class="modal-dialog modal-sm">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
@@ -146,29 +146,11 @@
 					</a>
 				</li>
 				<li>
-					<a href="javascript:;">
-					<i class="icon-users"></i>
-					<span class="title">Manage Account</span>
-					<span class="arrow "></span>
+					<a href="${pageContext.request.contextPath }/favoriteCourse.do?flag=favoriteCourseUi">
+					<i class="icon-star"></i>
+					<span class="title">Favorite Course</span>
 					</a>
-					<ul class="sub-menu">
-						<li>
-							<a href="">
-							Teacher</a>
-						</li>
-						<li>
-							<a href="">
-							Teaching Assistant</a>
-						</li>
-					</ul>
-				</li>
-				<li>
-					<a href="">
-					<i class="icon-note"></i>
-					<span class="title">Assign TA</span>
-					</a>
-				</li>
-
+				</li>				
 				<li class="active open">
 					<a href="${pageContext.request.contextPath }/changePwd.do?flag=goPwdUi">
 					<i class="icon-settings"></i>
@@ -197,7 +179,7 @@
 					</li>
 				</ul>
 			</div>
-			
+			<!-- END PAGE HEADER-->
 			<!-- BEGIN PROFILE CONTENT -->
 					
 						<div class="row">
@@ -230,11 +212,7 @@
 													<div class="alert alert-danger display-hide">
 														<button class="close" data-close="alert"></button>
 														You have some form errors. Please check below.
-													</div>
-													<div class="alert alert-success display-hide">
-														<button class="close" data-close="alert"></button>
-														Your form validation is successful!
-													</div>
+													</div>													
 
 													<div class="form-group">
 														<label class="control-label col-md-3">Current Password <span class="required">* </span></label>

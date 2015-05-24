@@ -62,7 +62,7 @@ var FormValidation = function () {
                 }
             });
             
-            $("button:reset").click(function() {
+            $("button:reset",changePwdform).click(function() {
 				error.hide();
 				success.hide();
 				$(".fa-warning").closest('.fa').removeClass("fa-warning");
@@ -76,6 +76,152 @@ var FormValidation = function () {
 
 
     }
+    
+    var addAccountValidation = function() {
+            var form1 = $('#addAccount');
+            var error1 = $('.alert-danger', form1);
+            var success1 = $('.alert-success', form1);
+
+            form1.validate({
+                errorElement: 'span', //default input error message container
+                errorClass: 'help-block help-block-error', // default input error message class
+                focusInvalid: false, // do not focus the last invalid input
+                ignore: "",  // validate all fields including form hidden input
+                rules: {
+                	account: {
+						minlength: 2,
+                        required: true
+					},
+                    name: {
+                        minlength: 3,
+                        required: true
+                    },
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                    phone: {
+						required: true,
+						digits:true,
+						rangelength:[6,11]
+					}
+                },
+
+                invalidHandler: function (event, validator) { //display error alert on form submit              
+                    success1.hide();
+                    error1.show();
+                    Metronic.scrollTo(error1, -200);
+                },
+
+                highlight: function (element) { // hightlight error inputs
+                    $(element)
+                        .closest('.form-group').removeClass('has-success').addClass('has-error'); // set error class to the control group
+                },
+
+                unhighlight: function (element) { // revert the change done by hightlight
+                    $(element)
+                        .closest('.form-group').removeClass('has-error'); // set error class to the control group
+                },
+
+                success: function (label) {
+                    label
+                        .closest('.form-group').removeClass('has-error').addClass('has-success'); // set success class to the control group
+                },
+
+                submitHandler: function (form) {
+                    success1.show();
+                    error1.hide();
+                    form.submit();
+                }
+            });
+            $("button:reset").click(function() {
+				error1.hide();
+				success1.hide();
+				
+				//$("label.has-error").closest('.form-group').hide();
+				//$("label.has-success").closest('.form-group').hide();
+				$(".has-error").closest('.form-group').removeClass('has-error');
+				$(".has-success").closest('.form-group').removeClass('has-success');
+				
+    			form1.validate().resetForm();
+				
+			});
+
+
+    }
+    
+    var addCourseValidation = function() {
+        var form3 = $('#addCourseForm');
+        var error3 = $('.alert-danger', form3);
+        var success3 = $('.alert-success', form3);
+
+        form3.validate({
+            errorElement: 'span', //default input error message container
+            errorClass: 'help-block help-block-error', // default input error message class
+            focusInvalid: false, // do not focus the last invalid input
+            ignore: "",  // validate all fields including form hidden input
+            rules: {
+            	courseName: {
+                    minlength: 3,
+                    required: true
+                },
+                instructor: {
+                    required: true
+                },
+                timeVenue: {
+                    required: true,
+                    minlength: 3
+                },
+                favoriteTA: {
+                    required: false
+                },
+                notes: {
+                    required: false
+                }
+            },
+
+            invalidHandler: function (event, validator) { //display error alert on form submit              
+                success3.hide();
+                error3.show();
+                Metronic.scrollTo(error3, -200);
+            },
+
+            highlight: function (element) { // hightlight error inputs
+                $(element)
+                    .closest('.form-group').removeClass('has-success').addClass('has-error'); // set error class to the control group
+            },
+
+            unhighlight: function (element) { // revert the change done by hightlight
+                $(element)
+                    .closest('.form-group').removeClass('has-error'); // set error class to the control group
+            },
+
+            success: function (label) {
+                label
+                    .closest('.form-group').removeClass('has-error').addClass('has-success'); // set success class to the control group
+            },
+
+            submitHandler: function (form) {
+                success3.show();
+                error3.hide();
+                form.submit();
+            }
+        });
+        $("button:reset").click(function() {
+			error3.hide();
+			success3.hide();
+			
+			//$("label.has-error").closest('.form-group').hide();
+			//$("label.has-success").closest('.form-group').hide();
+			$(".has-error").closest('.form-group').removeClass('has-error');
+			$(".has-success").closest('.form-group').removeClass('has-success');
+			
+			form3.validate().resetForm();
+			
+		});
+
+
+}
 
     // basic validation
     var handleValidation1 = function() {
@@ -252,7 +398,7 @@ var FormValidation = function () {
         // for more info visit the official plugin documentation: 
         // http://docs.jquery.com/Plugins/Validation
 
-            var form3 = $('#form_sample_3');
+            var form3 = $('#addCourseForm');
             var error3 = $('.alert-danger', form3);
             var success3 = $('.alert-success', form3);
 
@@ -273,40 +419,18 @@ var FormValidation = function () {
                         minlength: 2,
                         required: true
                     },
-                    email: {
+                    instructor: {
+                        required: true
+                    },
+                    timeVenue: {
                         required: true,
-                        email: true
-                    },  
-                    options1: {
-                        required: true
+                        minlength: 3
                     },
-                    options2: {
-                        required: true
+                    favoriteTA: {
+                        required: false
                     },
-                    select2tags: {
-                        required: true
-                    },
-                    datepicker: {
-                        required: true
-                    },
-                    occupation: {
-                        minlength: 5,
-                    },
-                    membership: {
-                        required: true
-                    },
-                    service: {
-                        required: true,
-                        minlength: 2
-                    },
-                    markdown: {
-                        required: true
-                    },
-                    editor1: {
-                        required: true
-                    },
-                    editor2: {
-                        required: true
+                    notes: {
+                        required: false
                     }
                 },
 
@@ -373,7 +497,7 @@ var FormValidation = function () {
             });
 
             // initialize select2 tags
-            $("#select2_tags").change(function() {
+            $("#instructor_tags").change(function() {
                 form3.validate().element($(this)); //revalidate the chosen dropdown value and show error or success message for the input 
             }).select2({
                 tags: ["red", "green", "blue", "yellow", "pink"]
@@ -409,8 +533,10 @@ var FormValidation = function () {
             //handleWysihtml5();
             //handleValidation1();
         	//handleValidation2();
-            //handleValidation3();
+        	//handleValidation3();
+        	addCourseValidation();
         	changePwdFormValidation();
+        	addAccountValidation();
 
         }
 

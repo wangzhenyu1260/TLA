@@ -17,6 +17,7 @@ public class Teachingassistant implements java.io.Serializable {
 	private String password;
 	private String name;
 	private String email;
+	private String phone;
 
 	// Constructors
 
@@ -26,11 +27,12 @@ public class Teachingassistant implements java.io.Serializable {
 
 	/** full constructor */
 	public Teachingassistant(String account, String password, String name,
-			String email) {
+			String email, String phone) {
 		this.account = account;
 		this.password = password;
 		this.name = name;
 		this.email = email;
+		this.phone = phone;
 	}
 
 	// Property accessors
@@ -73,6 +75,14 @@ public class Teachingassistant implements java.io.Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getPhone() {
+		return this.phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
 }

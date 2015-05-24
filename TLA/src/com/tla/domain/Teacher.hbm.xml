@@ -25,5 +25,11 @@
         <property name="phone" type="java.lang.String">
             <column name="phone" length="11" not-null="true" />
         </property>
+        <set name="courses" inverse="true">
+            <key>
+                <column name="builder" not-null="true" />
+            </key>
+            <one-to-many class="com.tla.domain.Course" />
+        </set>
     </class>
 </hibernate-mapping>

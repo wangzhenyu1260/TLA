@@ -95,8 +95,8 @@
 	</div>
 	<!-- END HEADER INNER -->
 </div>
-<div class="modal fade" id="logout" tabindex="-1" role="basic" aria-hidden="true">
-		<div class="modal-dialog">
+<div class="modal fade bs-modal-sm" id="logout" tabindex="-1" role="basic" aria-hidden="true">
+		<div class="modal-dialog modal-sm">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
@@ -231,11 +231,7 @@
 														<button class="close" data-close="alert"></button>
 														You have some form errors. Please check below.
 													</div>
-													<div class="alert alert-success display-hide">
-														<button class="close" data-close="alert"></button>
-														Your form validation is successful!
-													</div>
-
+													
 													<div class="form-group">
 														<label class="control-label col-md-3">Current Password <span class="required">* </span></label>
 														<div class="col-md-3">

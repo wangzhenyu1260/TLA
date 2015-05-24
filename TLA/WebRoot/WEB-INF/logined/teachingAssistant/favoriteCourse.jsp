@@ -26,13 +26,12 @@
 <!-- END GLOBAL MANDATORY STYLES -->
 <!-- BEGIN PAGE LEVEL STYLES -->
 <link rel="stylesheet" type="text/css" href="assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css"/>
-<!-- <link rel="stylesheet" type="text/css" href="assets/global/plugins/select2/select2.css"/> -->
 <!-- END PAGE LEVEL STYLES -->
 <!-- BEGIN THEME STYLES -->
 <link href="assets/global/css/components.css" id="style_components" rel="stylesheet" type="text/css"/>
 <link href="assets/global/css/plugins.css" rel="stylesheet" type="text/css"/>
 <link href="assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
-<link id="style_color" href="assets/admin/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css"/>
+<link id="style_color" href="assets/admin/layout/css/themes/grey.css" rel="stylesheet" type="text/css"/>
 <link href="assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
 <!-- END THEME STYLES -->
 <!-- Favicons-->
@@ -80,7 +79,7 @@
 				<li class="dropdown dropdown-user">
 					<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
 					<span class="username username-hide-on-mobile">
-					${secretaryinfo.name } </span>
+					${TAinfo.name } </span>
 					<i class="fa fa-angle-down"></i>
 					</a>
 					<ul class="dropdown-menu dropdown-menu-default">
@@ -145,33 +144,16 @@
 					<a href="${pageContext.request.contextPath }/goMainUi.do">
 					<i class="icon-home"></i>
 					<span class="title">Home</span>
+					
 					</a>
 				</li>
 				<li class="active open">
-					<a href="javascript:;">
-					<i class="icon-users"></i>
-					<span class="title">Manage Account</span>
+					<a href="${pageContext.request.contextPath }/favoriteCourse.do?flag=favoriteCourseUi">
+					<i class="icon-star"></i>
+					<span class="title">Favorite Course</span>
 					<span class="selected"></span>
-					<span class="arrow open"></span>
 					</a>
-					<ul class="sub-menu">
-						<li class="active">
-							<a href="${pageContext.request.contextPath }/manageAccount.do?flag=teacherUi">
-							Teacher</a>
-						</li>
-						<li>
-							<a href="${pageContext.request.contextPath }/manageAccount.do?flag=taUi">
-							Teaching Assistant</a>
-						</li>
-					</ul>
-				</li>
-				<li>
-					<a href="">
-					<i class="icon-note"></i>
-					<span class="title">Assign TA</span>
-					</a>
-				</li>
-
+				</li>				
 				<li>
 					<a href="${pageContext.request.contextPath }/changePwd.do?flag=goPwdUi">
 					<i class="icon-settings"></i>
@@ -191,147 +173,78 @@
 				<ul class="page-breadcrumb">
 					<li>
 						<i class="fa fa-home"></i>
-						<a href="${pageContext.request.contextPath }/goMainUi.do">Home</a>
+						<a href="">Home</a>
 						<i class="fa fa-angle-right"></i>
 					</li>
 					<li>
-						<a href="#">Manage Account</a>
-						<i class="fa fa-angle-right"></i>
-					</li>
-					<li>
-						<a href="${pageContext.request.contextPath }/manageAccount.do?flag=teacherUi">Teacher</a>
+						<a href="${pageContext.request.contextPath }/favoriteCourse.do?flag=favoriteCourseUi">Favorite Course</a>
 					</li>
 				</ul>
 			</div>
 			<!-- END PAGE HEADER-->
-			<!-- BEGIN Alert message -->
-			<c:if test="${TeacherOperation=='success'}">
-				<div class="alert alert-success SuccessInfo">
-					<button class="close" data-close="alert"></button>
-					<strong>Success!</strong> The operation completed successfully.
-				</div>
-			</c:if>
-			<c:if test="${TeacherOperation=='error'}">
-				<div class="alert alert-danger ErrorInfo">
-					<button class="close" data-close="alert"></button>
-					<strong>Error!</strong> The operation failed! ${ErrorInfo}
-				</div>
-			</c:if>
-			
-			<!-- END Alert message -->
 			<!-- BEGIN PAGE CONTENT-->
 			<div class="row">
 					<div class="col-md-12">
-						<!-- BEGIN TEACHER TABLE PORTLET-->
-						<div class="portlet box grey-cascade">
+						<!-- BEGIN Alert message -->
+						<c:if test="${LikeOperation=='success'}">
+							<div class="alert alert-success SuccessInfo">
+								<button class="close" data-close="alert"></button>
+								<strong>Success!</strong> The operation completed successfully.
+							</div>
+						</c:if>
+						<c:if test="${LikeOperation=='error'}">
+							<div class="alert alert-danger ErrorInfo">
+								<button class="close" data-close="alert"></button>
+								<strong>Error!</strong> The operation failed! ${ErrorInfo}
+							</div>
+						</c:if>
+
+						<!-- END Alert message -->
+						<!-- BEGIN Course TABLE PORTLET-->
+						<div class="portlet box green">
 							<div class="portlet-title">
 								<div class="caption">
-									<i class="fa fa-users"></i>Managed Teacher Account
+									<i class="fa fa-star"></i>Favorite Course
 								</div>
 							</div>
 							<div class="portlet-body">
-								<table class="table table-striped table-bordered table-hover" id="sample_1">
+								<table class="table table-striped table-bordered table-hover"
+									id="favoriteCourseTable">
 									<thead>
 										<tr>
-											<th>Name</th>
-											<th>Account</th>
-											<th>Phone</th>
-											<th>Email</th>
+											<th>#</th>
+											<th>Course Name</th>
+											<th>Instructor</th>
+											<th>Time & Venue</th>
 											<th></th>
-
 										</tr>
 									</thead>
 									<tbody>
-									<c:forEach items="${teacherList }" var="teacher">
-										<tr>
-											<td>${teacher.name }</td>
-											<td>${teacher.account }</td>
-											<td>${teacher.phone }</td>
-											<td><a href="mailto:${teacher.email }">
-													${teacher.email } </a></td>
-											<td><a data-confirm="Are you sure you reset the teacher '${teacher.name }' password?" href="${pageContext.request.contextPath }/manageAccount.do?flag=resetTeacher&tid=${teacher.id}"
-												class="btn default btn-xs purple"> <i class="fa fa-undo"></i>
-													Reset
-											</a> <a data-confirm="Are you sure you want to delete the teacher '${teacher.name }'?" href="${pageContext.request.contextPath }/manageAccount.do?flag=deleteTeacher&tid=${teacher.id}" class="btn default btn-xs black">
-													<i class="fa fa-trash-o"></i> Delete
-											</a></td>
-										</tr>
-									</c:forEach>
+										<c:forEach items="${courseList }" var="course"
+											varStatus="status">
+											<tr>
+												<td>${status.index+1}</td>
+												<td>${course.name }</td>
+												<td>${course.instructor }</td>
+												<td>${course.timeVenue }</td>
+												<td>
+													
+													<a href="${pageContext.request.contextPath }/favoriteCourse.do?flag=addFavoriteCourse&cid=${course.id}">
+														<img src="img/unlike.png" alt="like"
+														title="Add to Favorites" />
+													</a>
+													
+													<a href="${pageContext.request.contextPath }/favoriteCourse.do?flag=removeFavoriteCourse&cid=${course.id}">
+														<img src="img/like.png" alt="unlike" title="Remove to Favorites" />
+													</a>
+												</td>
+											</tr>
+										</c:forEach>
 									</tbody>
 								</table>
-								<div class="table-toolbar">
-									<div class="btn-group">
-										<a data-toggle="modal" href="#addTeacher">
-											<button class="btn green">
-												Add New <i class="fa fa-plus"></i>
-											</button>
-										</a>
-									</div>
-								</div>
 							</div>
 						</div>
-						<!-- END TEACHER TABLE PORTLET-->
-						<div class="modal fade" id="addTeacher" tabindex="-1" role="basic" aria-hidden="true">
-							<div class="modal-dialog">
-								<div class="modal-content">
-									<div class="modal-header">
-										<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-										<h4 class="modal-title">Create A New Teacher Account</h4>
-									</div>
-									<div class="modal-body">
-										<form class="form-horizontal" method="post" action="${pageContext.request.contextPath }/manageAccount.do?flag=addTeacher" id="addAccount">
-											<div class="alert alert-danger display-hide">
-												<button class="close" data-close="alert"></button>
-												You have some form errors. Please check below.
-											</div>
-											<div class="alert alert-success display-hide">
-												<button class="close" data-close="alert"></button>
-												Your form validation is successful!
-											</div>
-											<div class="form-group">
-												<label class="control-label col-md-4">Name <span
-													class="required"> * </span>
-												</label>
-												<div class="col-md-5">
-													<input type="text" name="name" data-required="1" class="form-control" />
-												</div>
-											</div>
-											<div class="form-group">
-												<label class="control-label col-md-4">Account <span
-													class="required"> * </span>
-												</label>
-												<div class="col-md-5">
-													<input type="text" name="account" class="form-control" />
-												</div>
-											</div>
-											<div class="form-group">
-												<label class="control-label col-md-4">Phone <span
-													class="required"> * </span>
-												</label>
-												<div class="col-md-5">
-													<input type="text" name="phone" class="form-control" />
-												</div>
-											</div>
-											<div class="form-group">
-												<label class="control-label col-md-4">Email <span
-													class="required"> * </span>
-												</label>
-												<div class="col-md-5">
-													<input name="email" type="text" class="form-control" />
-												</div>
-											</div>
-										</div>
-										<div class="modal-footer">
-											<button type="reset" class="btn default">Reset</button>
-											<button type="submit" class="btn blue">Submit</button>
-										</div>
-									</form>
-								</div>
-								<!-- /.modal-content -->
-							</div>
-							<!-- /.modal-dialog -->
-						</div>
-						<!-- /.modal -->
+						<!-- END Course TABLE PORTLET-->
 					</div>
 				</div>
 			<!-- END PAGE CONTENT-->
@@ -368,61 +281,24 @@
 <script src="assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
 <script src="assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
 <!-- END CORE PLUGINS -->
-
 <!-- BEGIN PAGE LEVEL PLUGINS -->
-<script type="text/javascript" src="assets/global/plugins/jquery-validation/js/jquery.validate.min.js"></script>
 <script type="text/javascript" src="assets/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
-<!-- <script type="text/javascript" src="assets/global/plugins/select2/select2.min.js"></script> -->
 <!-- END PAGE LEVEL PLUGINS -->
-
-<!-- BEGIN PAGE LEVEL SCRIPTS -->
 <script src="assets/global/scripts/metronic.js" type="text/javascript"></script>
 <script src="assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
 <!-- <script src="assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script> -->
 <script src="assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
-<script src="assets/admin/pages/scripts/form-validation.js"></script>
 <script src="assets/admin/pages/scripts/table-managed.js"></script>
-<!-- END PAGE LEVEL SCRIPTS -->
 <script>
       jQuery(document).ready(function() {    
         Metronic.init(); // init metronic core components
 		Layout.init(); // init current layout
 		//QuickSidebar.init(); // init quick sidebar
 		Demo.init(); // init demo features
-		FormValidation.init();
 		TableManaged.init();
-		
       });
-      $(document).ready(function() {
-			$('a[data-confirm]').click(function(ev) {
-				var href = $(this).attr('href');
-				if (!$('#dataConfirmModal').length) {
-					$('body').append(
-						'<div id="dataConfirmModal" class="modal fade" role="basic" aria-labelledby="dataConfirmLabel" aria-hidden="true">'+
-							'<div class="modal-dialog">'+
-								'<div class="modal-content">'+
-									'<div class="modal-header">'+
-										'<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>'+
-										'<h4 class="modal-title" id="dataConfirmLabel">Please Confirm</h4>'+
-									'</div>'+
-									'<div class="modal-body">'+
-									'</div>'+
-									'<div class="modal-footer">'+
-										'<a class="btn red" id="dataConfirmOK">Confirm</a>'+
-										'<button class="btn default" data-dismiss="modal" aria-hidden="true">Cancel</button>'+
-									'</div>'+
-								'</div>'+
-							'</div>'+
-						'</div>');}
-					$('#dataConfirmModal').find('.modal-body').text($(this).attr('data-confirm'));
-					$('#dataConfirmOK').attr('href', href);
-					$('#dataConfirmModal').modal({show : true});
-					return false;
-				});
-		});
-      
-   </script>
+</script>
 <!-- END JAVASCRIPTS -->
 </body>
 
