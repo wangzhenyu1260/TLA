@@ -73,18 +73,16 @@ var FormValidation = function () {
 				changePwdform.validate().resetForm();
 				
 			});
-
-
     }
     
    
     
     var callTaFormValidation = function() {
-            var form4 = $('#"callTaForm"');
+            var form4 = $('#callTaForm');
             var error4 = $('.alert-danger', form4);
             var success4 = $('.alert-success', form4);
 
-            form1.validate({
+            form4.validate({
                 errorElement: 'span', //default input error message container
                 errorClass: 'help-block help-block-error', // default input error message class
                 focusInvalid: false, // do not focus the last invalid input
@@ -274,7 +272,7 @@ var FormValidation = function () {
 		});
 
 
-}
+    }
 
     // basic validation
     var handleValidation1 = function() {

@@ -257,13 +257,13 @@
 											<div class="form-group">
 												<label class="control-label col-md-4">Subject <span class="required"> * </span></label>
 												<div class="col-md-6">
-													<input type="text" name="subject" data-required="1" class="form-control" required="required"/>
+													<input type="text" name="subject" data-required="1" class="form-control" />
 												</div>
 											</div>
 											<div class="form-group">
 												<label class="control-label col-md-4">Content <span class="required"> * </span></label>
 												<div class="col-md-6">
-													<textarea name="content" rows="5" required="required"></textarea>
+													<textarea name="content" rows="5" ></textarea>
 												</div>
 											</div>
 										</div>

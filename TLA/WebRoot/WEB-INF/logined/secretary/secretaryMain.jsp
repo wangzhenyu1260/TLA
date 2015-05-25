@@ -227,40 +227,40 @@
 						<img src="assets/admin/pages/media/pages/2.jpg" alt="" class="img-responsive"/>
 						<div class="team-info">
 							<p>
-								 Donec id elit non mi porta gravida at eget metus. Fusce dapibus, justo sit amet risus etiam porta sem...
+								 hi i'm crystal we are so great...
 							</p>
 						</div>
 					</div>
 				</div>
 				<div class="col-md-3">
 					<div class="meet-our-team">
-						<h3>Marta Doe</h3>
+						<h3>Page</h3>
 						<img src="assets/admin/pages/media/pages/3.jpg" alt="" class="img-responsive"/>
 						<div class="team-info">
 							<p>
-								 Donec id elit non mi porta gravida at eget metus. Fusce dapibus, justo sit amet risus etiam porta sem...
+								 hahahhahahah I'm Page I'm beautiful I love Crystal...
 							</p>
 						</div>
 					</div>
 				</div>
 				<div class="col-md-3">
 					<div class="meet-our-team">
-						<h3>Bob Nilson</h3>
+						<h3>Eric</h3>
 						<img src="assets/admin/pages/media/pages/2.jpg" alt="" class="img-responsive"/>
 						<div class="team-info">
 							<p>
-								 Donec id elit non mi porta gravida at eget metus. Fusce dapibus, justo sit amet risus etiam porta sem...
+								 Test test test~ I love my gf...
 							</p>
 						</div>
 					</div>
 				</div>
 				<div class="col-md-3">
 					<div class="meet-our-team">
-						<h3>Marta Doe</h3>
+						<h3>Mike</h3>
 						<img src="assets/admin/pages/media/pages/3.jpg" alt="" class="img-responsive"/>
 						<div class="team-info">
 							<p>
-								 Donec id elit non mi porta gravida at eget metus. Fusce dapibus, justo sit amet risus etiam porta sem...
+								 I'm Mike I'm beautiful too...
 							</p>
 						</div>
 					</div>
